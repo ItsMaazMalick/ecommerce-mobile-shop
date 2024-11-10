@@ -6,59 +6,51 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Sidebar } from "@/components/sidebar";
 import { Navbar } from "@/components/navbar";
 
-export default function Dashboard() {
+export default function Dashboard({ products }: any) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <>
       {/* TOP CARDS */}
       <div className="w-full grid grid-cols-4 p-4 gap-4">
-        <Card>
+        <Card className="bg-gradient-to-br from-primary-700 to-primary-400 text-primary-foreground shadow-md">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <BarChart3 className="h-4 w-4 text-muted-foreground" />
+            <BarChart3 className="h-4 w-4" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">$45,231.89</div>
-            <p className="text-xs text-muted-foreground">
-              +20.1% from last month
-            </p>
+            <p className="text-xs text-secondary-100">+20.1% from last month</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-gradient-to-br from-primary-700 to-primary-400 text-primary-foreground shadow-md">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <BarChart3 className="h-4 w-4 text-muted-foreground" />
+            <BarChart3 className="h-4 w-4" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">$45,231.89</div>
-            <p className="text-xs text-muted-foreground">
-              +20.1% from last month
-            </p>
+            <p className="text-xs text-secondary-100">+20.1% from last month</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-gradient-to-br from-primary-700 to-primary-400 text-primary-foreground shadow-md">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <BarChart3 className="h-4 w-4 text-muted-foreground" />
+            <BarChart3 className="h-4 w-4" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">$45,231.89</div>
-            <p className="text-xs text-muted-foreground">
-              +20.1% from last month
-            </p>
+            <p className="text-xs text-secondary-100">+20.1% from last month</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-gradient-to-br from-primary-700 to-primary-400 text-primary-foreground shadow-md">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <BarChart3 className="h-4 w-4 text-muted-foreground" />
+            <BarChart3 className="h-4 w-4" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">$45,231.89</div>
-            <p className="text-xs text-muted-foreground">
-              +20.1% from last month
-            </p>
+            <p className="text-xs text-secondary-100">+20.1% from last month</p>
           </CardContent>
         </Card>
       </div>
@@ -145,23 +137,7 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[
-                {
-                  name: "iPhone 13",
-                  sales: 1234,
-                  image: "/placeholder.svg?height=100&width=100",
-                },
-                {
-                  name: "Samsung Galaxy S21",
-                  sales: 1100,
-                  image: "/placeholder.svg?height=100&width=100",
-                },
-                {
-                  name: "Google Pixel 6",
-                  sales: 950,
-                  image: "/placeholder.svg?height=100&width=100",
-                },
-              ].map((product) => (
+              {products.map((product: any) => (
                 <div key={product.name} className="flex items-center space-x-4">
                   <img
                     src={product.image}
@@ -171,7 +147,7 @@ export default function Dashboard() {
                   <div>
                     <h3 className="font-semibold">{product.name}</h3>
                     <p className="text-sm text-muted-foreground">
-                      {product.sales} sales
+                      {product.price}
                     </p>
                   </div>
                 </div>

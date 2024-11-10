@@ -12,6 +12,7 @@ import {
   Plus,
   Minus,
   ShoppingCart,
+  Workflow,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,6 +31,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Image from "next/image";
 
 const repairOptions = [
   {
@@ -82,20 +84,7 @@ const repairOptions = [
   },
 ];
 
-export default function RepairingPage() {
-  const [selectedRepairs, setSelectedRepairs] = useState<number[]>([]);
-
-  const toggleRepair = (id: number) => {
-    setSelectedRepairs((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
-  };
-
-  const totalPrice = selectedRepairs.reduce((sum, id) => {
-    const repair = repairOptions.find((option) => option.id === id);
-    return sum + (repair?.price || 0);
-  }, 0);
-
+export function Repairing({ product }: any) {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row gap-8">
@@ -103,19 +92,29 @@ export default function RepairingPage() {
         <div className="md:w-1/3">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">iPhone 12 Repair</CardTitle>
+              <CardTitle className="text-2xl">{product.name}</CardTitle>
               <CardDescription>Select the services you need</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex justify-center mb-4">
-                <Smartphone className="w-32 h-32 text-primary" />
+                {product.image ? (
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    width={1000}
+                    height={1000}
+                    className="w-full h-full"
+                  />
+                ) : (
+                  <Smartphone className="w-32 h-32 text-primary" />
+                )}
               </div>
               <p className="text-center text-sm text-muted-foreground mb-4">
-                Model: iPhone 12
+                Model: {product.name}
                 <br />
-                Color: Various
+                Display: {product.display}
                 <br />
-                Storage: 64GB / 128GB / 256GB
+                Storage: {product.storage}
               </p>
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-1">
@@ -140,58 +139,25 @@ export default function RepairingPage() {
         <div className="md:w-2/3">
           <h2 className="text-2xl font-bold mb-4">Available Repair Services</h2>
           <div className="grid gap-4 mb-6">
-            {repairOptions.map((option) => (
-              <Card
-                key={option.id}
-                className={`transition-colors ${
-                  selectedRepairs.includes(option.id) ? "border-primary" : ""
-                }`}
-              >
+            {product.repairServices.map((service: any) => (
+              <Card key={service.id} className={`transition-colors`}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    <option.icon className="w-4 h-4 inline-block mr-2" />
-                    {option.name}
+                    <Workflow className="w-4 h-4 inline-block mr-2" />
+                    {service.name}
                   </CardTitle>
-                  <Badge
-                    variant={
-                      selectedRepairs.includes(option.id)
-                        ? "default"
-                        : "outline"
-                    }
-                  >
-                    ${option.price}
-                  </Badge>
+                  <Badge>${service.price}</Badge>
                 </CardHeader>
                 <CardContent>
                   <p className="text-xs text-muted-foreground">
-                    {option.description}
+                    {service.description}
                   </p>
                   <p className="text-xs mt-1">
-                    Estimated time: {option.estimatedTime}
+                    Estimated time: {service.estimatedTime}
                   </p>
                 </CardContent>
                 <CardFooter>
-                  <Button
-                    variant={
-                      selectedRepairs.includes(option.id)
-                        ? "default"
-                        : "outline"
-                    }
-                    className="w-full"
-                    onClick={() => toggleRepair(option.id)}
-                  >
-                    {selectedRepairs.includes(option.id) ? (
-                      <>
-                        <Minus className="w-4 h-4 mr-2" />
-                        Remove
-                      </>
-                    ) : (
-                      <>
-                        <Plus className="w-4 h-4 mr-2" />
-                        Add to Cart
-                      </>
-                    )}
-                  </Button>
+                  <Button className="w-full">Add to Cart</Button>
                 </CardFooter>
               </Card>
             ))}
@@ -204,33 +170,12 @@ export default function RepairingPage() {
         <CardHeader>
           <CardTitle>Order Summary</CardTitle>
         </CardHeader>
-        <CardContent>
-          {selectedRepairs.length > 0 ? (
-            <ul className="space-y-2">
-              {selectedRepairs.map((id) => {
-                const repair = repairOptions.find((option) => option.id === id);
-                return repair ? (
-                  <li
-                    key={repair.id}
-                    className="flex justify-between items-center"
-                  >
-                    <span>{repair.name}</span>
-                    <span>${repair.price}</span>
-                  </li>
-                ) : null;
-              })}
-            </ul>
-          ) : (
-            <p className="text-muted-foreground">No repairs selected</p>
-          )}
-          <Separator className="my-4" />
-          <div className="flex justify-between items-center font-bold">
-            <span>Total</span>
-            <span>${totalPrice}</span>
-          </div>
-        </CardContent>
+
         <CardFooter>
-          <Button className="w-full" disabled={selectedRepairs.length === 0}>
+          <Button
+            className="w-full"
+            disabled={product.repairServices.length === 0}
+          >
             <ShoppingCart className="w-4 h-4 mr-2" />
             Proceed to Checkout
           </Button>

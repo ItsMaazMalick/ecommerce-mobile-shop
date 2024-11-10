@@ -22,7 +22,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 // Assuming you're passing a prop `products` that contains the product data from the backend
-export function Products({ products }: any) {
+export function RepairingServices({ products }: any) {
   console.log(products);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
@@ -116,20 +116,16 @@ export function Products({ products }: any) {
             <CardContent className="flex-grow p-4">
               <CardTitle>{product.name}</CardTitle>
               <p className="text-sm text-gray-500">{product.category.name}</p>
-              <div className="flex justify-between items-center">
-                <p className="text-lg font-bold mt-2">${product.price}</p>
-                <Link
-                  className="flex justify-end text-destructive"
-                  href={`/admin/dashboard/products/${product.slug}/repairing`}
-                >
-                  Show Services
-                </Link>
-              </div>
+
+              <p className="text-lg font-bold mt-2">${product.price}</p>
             </CardContent>
             <CardFooter className="flex justify-between p-4 pt-0">
               <Button asChild>
-                <Link href={`/admin/dashboard/products/${product.slug}`}>
-                  View Detail
+                <Link
+                  className="w-full"
+                  href={`/admin/dashboard/products/${product.slug}/repairing`}
+                >
+                  Services
                 </Link>
               </Button>
               <Button asChild className="my-2"></Button>

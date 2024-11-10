@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { ArrowLeft, PenTool, ShoppingCart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,6 +9,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Link from "next/link";
+import { getProductBySlug } from "@/actions/product";
 
 // Mock data for a single product
 const product = {
@@ -40,36 +40,52 @@ const product = {
   reviews: 2731,
 };
 
-export default function ProductDetailPage() {
+export default async function ProductDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const slug = (await params).slug;
+  const product = await getProductBySlug(slug);
+  console.log(product);
+
+  if (!product) {
+    return null;
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
-      <Button variant="ghost" className="mb-4">
-        <ArrowLeft className="mr-2 h-4 w-4" />
-        Back to Products
+      <Button variant="ghost" className="mb-4" asChild>
+        <Link href={"/admin/dashboard/products"}>
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to Products
+        </Link>
       </Button>
 
       <div className="grid md:grid-cols-2 gap-8">
         {/* Product Image */}
-        <div>
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full rounded-lg shadow-lg"
-          />
-        </div>
+        {product.image && (
+          <div>
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full rounded-lg shadow-lg"
+            />
+          </div>
+        )}
 
         {/* Product Details */}
         <div>
           <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
           <div className="flex items-center mb-4">
             <Badge variant="secondary" className="mr-2">
-              {product.brand}
+              {product.category.name}
             </Badge>
             <div className="flex items-center">
               <Star className="w-4 h-4 text-yellow-400 fill-current" />
-              <span className="ml-1 text-sm text-gray-600">
+              {/* <span className="ml-1 text-sm text-gray-600">
                 {product.rating} ({product.reviews} reviews)
-              </span>
+              </span> */}
             </div>
           </div>
           <p className="text-2xl font-bold mb-4">${product.price}</p>
@@ -85,12 +101,30 @@ export default function ProductDetailPage() {
           {/* Specifications */}
           <h2 className="text-xl font-semibold mb-4">Specifications</h2>
           <div className="grid grid-cols-2 gap-4 mb-6">
-            {product.specs.map((spec, index) => (
-              <div key={index}>
-                <p className="font-medium">{spec.name}</p>
-                <p className="text-sm text-gray-600">{spec.value}</p>
-              </div>
-            ))}
+            <div>
+              <p className="font-medium">Display</p>
+              <p className="text-sm text-gray-600">{product.display}</p>
+            </div>
+            <div>
+              <p className="font-medium">Storage</p>
+              <p className="text-sm text-gray-600">{product.storage}</p>
+            </div>
+            <div>
+              <p className="font-medium">Chip</p>
+              <p className="text-sm text-gray-600">{product.chip}</p>
+            </div>
+            <div>
+              <p className="font-medium">Back Camera</p>
+              <p className="text-sm text-gray-600">{product.backCamera}</p>
+            </div>
+            <div>
+              <p className="font-medium">Front Camera</p>
+              <p className="text-sm text-gray-600">{product.frontCamera}</p>
+            </div>
+            <div>
+              <p className="font-medium">Battery</p>
+              <p className="text-sm text-gray-600">{product.battery}</p>
+            </div>
           </div>
 
           <Separator className="my-6" />
@@ -110,9 +144,13 @@ export default function ProductDetailPage() {
                   <div className="flex items-start">
                     <PenTool className="w-4 h-4 mr-2 mt-1" />
                     <p className="text-sm text-gray-600">
-                      Professional {service.name.toLowerCase()} service for your{" "}
-                      {product.name}. Our certified technicians use high-quality
-                      parts to ensure your device functions like new.
+                      {service.description}
+                    </p>
+                  </div>
+                  <div className="flex items-start">
+                    <PenTool className="w-4 h-4 mr-2 mt-1" />
+                    <p className="text-sm text-gray-600 font-bold">
+                      {service.estimatedTime}
                     </p>
                   </div>
                 </AccordionContent>

@@ -34,7 +34,7 @@ export default function RootLayout({
           <div>
             <Sidebar />
           </div>
-          <div className="w-[calc(100dvw-256px)] max-h-[100dvh] overflow-y-auto">
+          <div className="w-full lg:w-[calc(100dvw-256px)] max-h-[100dvh] overflow-y-auto">
             <Navbar />
             {children}
           </div>

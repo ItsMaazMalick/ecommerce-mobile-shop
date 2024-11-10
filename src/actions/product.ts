@@ -64,3 +64,22 @@ export const getAllProductWithCategoryName = async () => {
     return null;
   }
 };
+
+export async function getProductBySlug(slug: string) {
+  try {
+    const product = await prisma.product.findUnique({
+      where: { slug },
+      include: {
+        category: {
+          select: {
+            name: true,
+          },
+        },
+        repairServices: true,
+      },
+    });
+    return product;
+  } catch (error) {
+    return null;
+  }
+}
