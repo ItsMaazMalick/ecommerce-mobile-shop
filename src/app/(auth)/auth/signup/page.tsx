@@ -9,8 +9,14 @@ import {
 import { Smartphone } from "lucide-react";
 import Link from "next/link";
 import { SignupForm } from "./signup";
+import { getSession } from "@/actions/session";
+import { redirect } from "next/navigation";
 
-export default function SignupPage() {
+export default async function SignupPage() {
+  const session = await getSession();
+  if (session) {
+    return redirect("/dashboard");
+  }
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white flex items-center justify-center p-4">
       <Card className="w-full max-w-md">

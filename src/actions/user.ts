@@ -5,6 +5,12 @@ import { loginSchema } from "@/lib/schemas/login-schema";
 import { signupSchema } from "@/lib/schemas/signup-schema";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
+import CryptoJS from "crypto-js";
+import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
+import { encryptString } from "@/lib/encryption";
+import { redirect } from "next/navigation";
+import { isRedirectError } from "next/dist/client/components/redirect";
 
 export async function signup(values: z.infer<typeof signupSchema>) {
   try {
@@ -44,15 +50,31 @@ export async function login(values: z.infer<typeof loginSchema>) {
     if (!existingUser) {
       return { error: "Invalid credentials" };
     }
-    const isValidPassword = bcrypt.compare(
-      existingUser.password,
-      validData.data.password
+    const isValidPassword = await bcrypt.compare(
+      validData.data.password,
+      existingUser.password
     );
     if (!isValidPassword) {
       return { error: "Invalid credentials" };
     }
+    const tokenData = {
+      id: existingUser.id,
+      name: existingUser.name,
+      email: existingUser.email,
+      role: existingUser.role,
+    };
+    const token = jwt.sign(tokenData, process.env.TOKEN_SECRET_KEY!, {
+      expiresIn: "1d",
+    });
+    const encryptedToken = encryptString(token);
+    (await cookies()).set("token", encryptedToken, {
+      secure: true,
+      httpOnly: true,
+    });
+    return redirect("/dashboard");
     return { success: "Logged in" };
   } catch (error) {
+    if (isRedirectError(error)) throw error;
     return { error: "Internal server error" };
   }
 }

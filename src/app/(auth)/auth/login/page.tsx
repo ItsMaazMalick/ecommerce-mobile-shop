@@ -1,3 +1,4 @@
+import { getSession } from "@/actions/session";
 import { LoginForm } from "./login";
 import {
   Card,
@@ -9,8 +10,13 @@ import {
 } from "@/components/ui/card";
 import { Smartphone } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const session = await getSession();
+  if (session) {
+    return redirect("/dashboard");
+  }
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white flex items-center justify-center p-4">
       <Card className="w-full max-w-md">

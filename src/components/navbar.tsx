@@ -11,14 +11,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PrevNextButton } from "./prev-next-button";
+import { MobileSidebar } from "./mobile-sidebar";
 
 export function Navbar() {
   return (
     <header className="bg-gradient-to-r from-primary-700 to-primary-500 shadow-sm z-10 h-[70px]">
       <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-        <Button variant="ghost" className="md:hidden">
-          <Menu className="h-6 w-6" />
-        </Button>
+        <MobileSidebar>
+          <Button variant="outline">
+            <Menu className="h-6 w-6" />
+          </Button>
+        </MobileSidebar>
+
         {/* BACK AND FORTH BUTTON */}
         <div className="hidden md:block">
           <PrevNextButton />

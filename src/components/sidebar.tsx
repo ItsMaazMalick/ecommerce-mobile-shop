@@ -16,7 +16,7 @@ export function Sidebar() {
         <h2 className="text-2xl font-semibold mb-6">MobileShop</h2>
         <ul>
           <li className="mb-4">
-            <Link href="/admin/dashboard">
+            <Link href="/dashboard">
               <Button
                 variant="ghost"
                 className="w-full justify-start text-white"
@@ -27,7 +27,7 @@ export function Sidebar() {
             </Link>
           </li>
           <li className="mb-4">
-            <Link href="/admin/dashboard/products">
+            <Link href="/dashboard/products">
               <Button
                 variant="ghost"
                 className="w-full justify-start text-white"
@@ -38,7 +38,7 @@ export function Sidebar() {
             </Link>
           </li>
           <li className="mb-4">
-            <Link href="/admin/dashboard/repairing-services">
+            <Link href="/dashboard/repairing-services">
               <Button
                 variant="ghost"
                 className="w-full justify-start text-white"
@@ -55,7 +55,7 @@ export function Sidebar() {
             </Button>
           </li>
           <li className="mb-4">
-            <Link href="/admin/dashboard/add-category">
+            <Link href="/dashboard/add-category">
               <Button
                 variant="ghost"
                 className="w-full justify-start text-white"
@@ -66,7 +66,7 @@ export function Sidebar() {
             </Link>
           </li>
           <li className="mb-4">
-            <Link href="/admin/dashboard/add-product">
+            <Link href="/dashboard/add-product">
               <Button
                 variant="ghost"
                 className="w-full justify-start text-white"
@@ -77,7 +77,7 @@ export function Sidebar() {
             </Link>
           </li>
           <li className="mb-4">
-            <Link href="/admin/dashboard/add-repairing">
+            <Link href="/dashboard/add-repairing">
               <Button
                 variant="ghost"
                 className="w-full justify-start text-white"
