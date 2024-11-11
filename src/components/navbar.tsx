@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,8 +11,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PrevNextButton } from "./prev-next-button";
 import { MobileSidebar } from "./mobile-sidebar";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-export function Navbar() {
+export function Navbar({ user }: any) {
   return (
     <header className="bg-gradient-to-r from-primary-700 to-primary-500 shadow-sm z-10 h-[70px]">
       <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
@@ -38,7 +39,7 @@ export function Navbar() {
               <p>
                 <span className="text-black">Logged in:&nbsp;</span>
                 <span className="font-bold text-primary uppercase">
-                  MAAZ MALICK
+                  {user.name}
                 </span>
               </p>
               <ChevronDown className="ml-2 h-4 w-4" />
@@ -49,7 +50,20 @@ export function Navbar() {
             <DropdownMenuSeparator />
             {/* <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Settings</DropdownMenuItem> */}
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem>
+              <form
+                action={async () => {
+                  "use server";
+                  (await cookies()).delete("token");
+                  return redirect("/auth/login");
+                }}
+                className="w-full"
+              >
+                <Button type="submit" variant={"secondary"} className="w-full">
+                  Logout
+                </Button>
+              </form>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

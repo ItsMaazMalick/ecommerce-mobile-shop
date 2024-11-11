@@ -31,84 +31,66 @@ export function MobileSidebar({ children }: { children: React.ReactNode }) {
           <li className="mb-4">
             <Link href="/dashboard" passHref>
               <SheetClose>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-white"
-                >
+                <span className="w-full flex justify-start text-white p-4">
                   <Package className="mr-2 h-4 w-4" />
                   Dashboard
-                </Button>
+                </span>
               </SheetClose>
             </Link>
           </li>
           <li className="mb-4">
             <Link href="/dashboard/products" passHref>
               <SheetClose>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-white"
-                >
+                <span className="w-full flex justify-start text-white p-4">
                   <Package className="mr-2 h-4 w-4" />
                   Products
-                </Button>
+                </span>
               </SheetClose>
             </Link>
           </li>
           <li className="mb-4">
             <Link href="/dashboard/repairing-services" passHref>
               <SheetClose>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-white"
-                >
+                <span className="w-full flex justify-start text-white p-4">
                   <Package className="mr-2 h-4 w-4" />
                   Repairing Services
-                </Button>
+                </span>
               </SheetClose>
             </Link>
           </li>
           <li className="mb-4">
-            <Button variant="ghost" className="w-full justify-start text-white">
+            <span className="w-full flex justify-start text-white p-4">
               <ShoppingCart className="mr-2 h-4 w-4" />
               Orders
-            </Button>
+            </span>
           </li>
           <li className="mb-4">
             <Link href="/dashboard/add-category" passHref>
               <SheetClose>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-white"
-                >
+                <span className="w-full flex justify-start text-white p-4">
                   <Package className="mr-2 h-4 w-4" />
                   Add Category
-                </Button>
+                </span>
               </SheetClose>
             </Link>
           </li>
           <li className="mb-4">
             <Link href="/dashboard/add-product" passHref>
               <SheetClose>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-white"
-                >
+                <span className="w-full flex justify-start text-white p-4">
                   <Package className="mr-2 h-4 w-4" />
                   Add Product
-                </Button>
+                </span>
               </SheetClose>
             </Link>
           </li>
           <li className="mb-4">
             <Link href="/dashboard/add-repairing" passHref>
               <SheetClose>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start text-white"
-                >
+                <span className="w-full flex justify-start text-white p-4">
                   <Package className="mr-2 h-4 w-4" />
                   Add Repairing
-                </Button>
+                </span>
               </SheetClose>
             </Link>
           </li>
