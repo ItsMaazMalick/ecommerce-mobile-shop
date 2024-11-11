@@ -33,57 +33,6 @@ import {
 } from "@/components/ui/accordion";
 import Image from "next/image";
 
-const repairOptions = [
-  {
-    id: 1,
-    name: "Screen Replacement",
-    price: 199,
-    icon: Monitor,
-    description: "Replace damaged or cracked screen",
-    estimatedTime: "1-2 hours",
-  },
-  {
-    id: 2,
-    name: "Battery Replacement",
-    price: 69,
-    icon: Battery,
-    description: "Replace old or faulty battery",
-    estimatedTime: "30-45 minutes",
-  },
-  {
-    id: 3,
-    name: "Charging Port Repair",
-    price: 79,
-    icon: Zap,
-    description: "Fix issues with charging or data transfer",
-    estimatedTime: "45-60 minutes",
-  },
-  {
-    id: 4,
-    name: "Camera Repair",
-    price: 89,
-    icon: Camera,
-    description: "Repair front or rear camera issues",
-    estimatedTime: "1 hour",
-  },
-  {
-    id: 5,
-    name: "Wi-Fi/Bluetooth Fix",
-    price: 69,
-    icon: Wifi,
-    description: "Resolve connectivity problems",
-    estimatedTime: "30-45 minutes",
-  },
-  {
-    id: 6,
-    name: "Speaker Repair",
-    price: 79,
-    icon: Volume2,
-    description: "Fix audio output issues",
-    estimatedTime: "45-60 minutes",
-  },
-];
-
 export function Repairing({ product }: any) {
   return (
     <div className="container mx-auto px-4 py-8">

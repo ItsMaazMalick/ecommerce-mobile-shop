@@ -1,9 +1,7 @@
 "use server";
 
 import prisma from "@/lib/db";
-import { addProductSchema } from "@/lib/schemas/product-schema";
 import { addRepairingSchema } from "@/lib/schemas/repairing-schema";
-import { generateSlug } from "@/lib/slug";
 import { z } from "zod";
 
 export const addService = async (
