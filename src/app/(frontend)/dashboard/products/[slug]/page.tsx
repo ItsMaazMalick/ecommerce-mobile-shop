@@ -56,7 +56,7 @@ export default async function ProductDetailPage({
   return (
     <div className="container mx-auto px-4 py-8">
       <Button variant="ghost" className="mb-4" asChild>
-        <Link href={"/admin/dashboard/products"}>
+        <Link href={"/dashboard/products"}>
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Products
         </Link>
@@ -132,7 +132,7 @@ export default async function ProductDetailPage({
           {/* Repair Services */}
           <h2 className="text-xl font-semibold mb-4">Repair Services</h2>
           <Accordion type="single" collapsible className="w-full">
-            {product.repairServices.map((service, index) => (
+            {product.repairServices.map((service: any, index: number) => (
               <AccordionItem key={index} value={`item-${index}`}>
                 <AccordionTrigger>
                   <div className="flex justify-between w-full">

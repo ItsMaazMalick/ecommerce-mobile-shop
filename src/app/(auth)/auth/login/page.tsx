@@ -18,7 +18,7 @@ export default async function LoginPage() {
     return redirect("/dashboard");
   }
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white flex items-center justify-center p-4">
+    <div className="h-[100dvh] bg-gradient-to-b from-blue-100 to-white flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <div className="flex items-center justify-center mb-4">

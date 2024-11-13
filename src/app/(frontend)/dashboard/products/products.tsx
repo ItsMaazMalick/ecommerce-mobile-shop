@@ -120,7 +120,7 @@ export function Products({ products }: any) {
                 <p className="text-lg font-bold mt-2">${product.price}</p>
                 <Link
                   className="flex justify-end text-destructive"
-                  href={`/admin/dashboard/products/${product.slug}/repairing`}
+                  href={`/dashboard/products/${product.slug}/repairing`}
                 >
                   Show Services
                 </Link>
@@ -128,7 +128,7 @@ export function Products({ products }: any) {
             </CardContent>
             <CardFooter className="flex justify-between p-4 pt-0">
               <Button asChild>
-                <Link href={`/admin/dashboard/products/${product.slug}`}>
+                <Link href={`/dashboard/products/${product.slug}`}>
                   View Detail
                 </Link>
               </Button>
