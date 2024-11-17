@@ -1,6 +1,6 @@
 "use client";
 
-import { addCategory } from "@/actions/category";
+import { signup } from "@/actions/user";
 import FormSubmitButton from "@/components/form-submit-button";
 import TextInput from "@/components/inputs/text-input";
 import { Form } from "@/components/ui/form";
@@ -8,8 +8,6 @@ import { signupSchema } from "@/lib/schemas/signup-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import bcrypt from "bcryptjs";
-import { signup } from "@/actions/user";
 
 export function SignupForm() {
   // 1. Define your form.

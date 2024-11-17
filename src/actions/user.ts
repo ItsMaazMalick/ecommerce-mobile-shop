@@ -1,16 +1,15 @@
 "use server";
 
 import prisma from "@/lib/db";
+import { encryptString } from "@/lib/encryption";
 import { loginSchema } from "@/lib/schemas/login-schema";
 import { signupSchema } from "@/lib/schemas/signup-schema";
-import { z } from "zod";
 import bcrypt from "bcryptjs";
-import CryptoJS from "crypto-js";
 import jwt from "jsonwebtoken";
-import { cookies } from "next/headers";
-import { encryptString } from "@/lib/encryption";
-import { redirect } from "next/navigation";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { z } from "zod";
 
 export async function signup(values: z.infer<typeof signupSchema>) {
   try {

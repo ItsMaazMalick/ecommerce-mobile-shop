@@ -1,7 +1,7 @@
 import { getAllProductWithCategoryName } from "@/actions/product";
-import Dashboard from "./Dashboard";
+import { getALLServices } from "@/actions/service";
 import { Suspense } from "react";
-import { getALLServices, getServicesWithProduct } from "@/actions/service";
+import Dashboard from "./Dashboard";
 
 export default async function DashboardPage() {
   const products = await getAllProductWithCategoryName();

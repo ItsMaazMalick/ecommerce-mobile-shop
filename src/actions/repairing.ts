@@ -2,7 +2,6 @@
 
 import prisma from "@/lib/db";
 import { addRepairingProductSchema } from "@/lib/schemas/category-schema";
-import { addProductSchema } from "@/lib/schemas/product-schema";
 import { generateSlug } from "@/lib/slug";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";

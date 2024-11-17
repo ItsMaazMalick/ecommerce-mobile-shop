@@ -6,7 +6,6 @@ import FormSubmitButton from "@/components/form-submit-button";
 import SelectInput from "@/components/inputs/select-input";
 import { TextAreaInput } from "@/components/inputs/text-area-input";
 import TextInput from "@/components/inputs/text-input";
-import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,12 +25,7 @@ export function AddProductForm({ categories }: any) {
       name: "",
       price: 0,
       description: "",
-      display: "",
       storage: "",
-      chip: "",
-      frontCamera: "",
-      backCamera: "",
-      battery: "",
     },
   });
 

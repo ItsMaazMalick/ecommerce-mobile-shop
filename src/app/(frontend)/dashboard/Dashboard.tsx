@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { BarChart3, ShoppingBag, Users, Package } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Sidebar } from "@/components/sidebar";
-import { Navbar } from "@/components/navbar";
+import { BarChart3 } from "lucide-react";
+import { useState } from "react";
 
 export default function Dashboard({ products, services }: any) {
   const [sidebarOpen, setSidebarOpen] = useState(false);

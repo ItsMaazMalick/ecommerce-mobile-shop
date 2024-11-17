@@ -1,8 +1,6 @@
 "use server";
 
-import { createOrderSchema } from "@/app/checkout/checkout";
 import prisma from "@/lib/db";
-import { z } from "zod";
 
 export async function createOrder(values: any) {
   try {

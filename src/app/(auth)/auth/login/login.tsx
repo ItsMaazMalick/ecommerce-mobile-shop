@@ -1,16 +1,13 @@
 "use client";
 
-import { addCategory } from "@/actions/category";
+import { login } from "@/actions/user";
 import FormSubmitButton from "@/components/form-submit-button";
 import TextInput from "@/components/inputs/text-input";
 import { Form } from "@/components/ui/form";
-import { signupSchema } from "@/lib/schemas/signup-schema";
+import { loginSchema } from "@/lib/schemas/login-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import bcrypt from "bcryptjs";
-import { login, signup } from "@/actions/user";
-import { loginSchema } from "@/lib/schemas/login-schema";
 
 export function LoginForm() {
   // 1. Define your form.
