@@ -30,8 +30,7 @@ export const addRepairingProduct = async (
     });
     revalidatePath("/dashboard/add-repairing");
     return { success: "Product added" };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return { error: "Internal server error" };
   }
 };
@@ -40,7 +39,7 @@ export const getAllRepairingProducts = async () => {
   try {
     const products = await prisma.repairProduct.findMany();
     return products;
-  } catch (error) {
+  } catch {
     return null;
   }
 };
@@ -58,7 +57,7 @@ export async function getProductBySlug(slug: string) {
       },
     });
     return product;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -70,7 +69,7 @@ export async function getRepairingProductBySlug(slug: string) {
       include: { RepairServices: true },
     });
     return product;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

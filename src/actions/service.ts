@@ -33,8 +33,7 @@ export const addService = async (
       },
     });
     return { success: "Service added" };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return { error: "Internal server error" };
   }
 };
@@ -48,7 +47,7 @@ export async function getServicesWithProduct(slug: string) {
       },
     });
     return product;
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -65,7 +64,7 @@ export async function getALLServices() {
       },
     });
     return services;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

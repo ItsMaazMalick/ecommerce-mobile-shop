@@ -22,7 +22,7 @@ export async function getSession() {
       return null;
     }
     return { user: { ...result } };
-  } catch (error) {
+  } catch {
     return null;
   }
 }

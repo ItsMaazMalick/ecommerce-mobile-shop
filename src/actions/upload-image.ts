@@ -15,7 +15,7 @@ export const uploadImage = async (file: File) => {
 
     const res = await uploadToCloudinary(fileUri, file.name);
     return res;
-  } catch (error) {
+  } catch {
     return { error: "Something went wrong" };
   }
 };

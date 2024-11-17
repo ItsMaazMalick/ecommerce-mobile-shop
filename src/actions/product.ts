@@ -37,8 +37,7 @@ export const addProduct = async (
       },
     });
     return { success: "Product added" };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return { error: "Internal server error" };
   }
 };
@@ -55,7 +54,7 @@ export const getAllProductWithCategoryName = async () => {
       },
     });
     return products;
-  } catch (error) {
+  } catch {
     return null;
   }
 };
@@ -73,7 +72,7 @@ export async function getProductBySlug(slug: string) {
       },
     });
     return product;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

@@ -62,7 +62,7 @@ export async function createOrder(values: any) {
       );
     }
     return { success: "Order created..." };
-  } catch (error) {
+  } catch {
     return { error: "Something went wrong" };
   }
 }

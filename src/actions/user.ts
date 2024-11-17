@@ -33,7 +33,7 @@ export async function signup(values: z.infer<typeof signupSchema>) {
       },
     });
     return { success: "Account created kindly check your email address" };
-  } catch (error) {
+  } catch {
     return { error: "Internal server error" };
   }
 }

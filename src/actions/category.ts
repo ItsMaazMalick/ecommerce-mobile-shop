@@ -37,7 +37,7 @@ export const addCategory = async (
       },
     });
     return { success: "Creategory created" };
-  } catch (error) {
+  } catch {
     return { error: "Internal server error" };
   }
 };
@@ -46,7 +46,7 @@ export const getAllCategories = async () => {
   try {
     const categories = await prisma.category.findMany();
     return categories;
-  } catch (error) {
+  } catch {
     return null;
   }
 };
