@@ -16,7 +16,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { ChevronDown, Filter, Search, Smartphone } from "lucide-react";
+import { useCartStore } from "@/store";
+import { ChevronDown, Filter, Plus, Search, Smartphone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -27,6 +28,7 @@ export function Products({ products, link }: any) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
+  const { addItem } = useCartStore();
 
   // Handle case when products are undefined or empty
   if (!products || products.length === 0) {
@@ -53,6 +55,16 @@ export function Products({ products, link }: any) {
   const brands: string[] = Array.from(
     new Set(products.map((p: any) => p.category.name))
   );
+
+  const handleAddToCart = (phone: any) => {
+    addItem({
+      id: phone.id,
+      name: phone.name,
+      price: phone.price,
+      type: "mobile",
+    });
+    console.log("added");
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -138,7 +150,14 @@ export function Products({ products, link }: any) {
                   View Detail
                 </Link>
               </Button>
-              <Button asChild className="my-2"></Button>
+              <Button
+                variant="default"
+                className="w-full"
+                onClick={() => handleAddToCart(product)}
+              >
+                <Plus className="mr-2 h-4 w-4" />
+                Add to Cart
+              </Button>
             </CardFooter>
           </Card>
         ))}

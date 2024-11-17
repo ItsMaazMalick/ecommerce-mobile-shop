@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Sidebar } from "@/components/sidebar";
 import { Navbar } from "@/components/navbar";
 
-export default function Dashboard({ products }: any) {
+export default function Dashboard({ products, services }: any) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -129,8 +129,101 @@ export default function Dashboard({ products }: any) {
           </CardContent>
         </Card>
       </div>
-      {/* POPULAR PRODUCTS */}
+      {/* PRODUCTS */}
       <div className="p-4">
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>Products</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-2">Product Name</th>
+                    <th className="text-left p-2">In Stock</th>
+                    <th className="text-left p-2">Price</th>
+                    <th className="text-left p-2">Storage</th>
+                    <th className="text-left p-2">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map((product: any) => (
+                    <tr key={product.id} className="border-b">
+                      <td className="p-2">{product.name}</td>
+                      <td className="p-2">100</td>
+                      <td className="p-2">${product.price}</td>
+                      <td className="p-2">{product.storage}</td>
+                      <td className="p-2">
+                        {/* <span
+                          className={`px-2 py-1 rounded-full text-xs ${
+                            order.status === "Completed"
+                              ? "bg-green-100 text-green-800"
+                              : order.status === "Processing"
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-blue-100 text-blue-800"
+                          }`}
+                        >
+                          {order.status}
+                        </span> */}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+      {/* SERVICES */}
+      <div className="p-4">
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>Services</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-2">Service Name</th>
+                    <th className="text-left p-2">Product Name</th>
+                    <th className="text-left p-2">Price</th>
+                    <th className="text-left p-2">Description</th>
+                    <th className="text-left p-2">Estimated Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {services.map((service: any) => (
+                    <tr key={service.id} className="border-b">
+                      <td className="p-2">{service.name}</td>
+                      <td className="p-2">{service.Product?.name}</td>
+                      <td className="p-2">${service.price}</td>
+                      <td className="p-2">{service.description}</td>
+                      <td className="p-2">{service.estimatedTime}</td>
+                      <td className="p-2">
+                        {/* <span
+                          className={`px-2 py-1 rounded-full text-xs ${
+                            order.status === "Completed"
+                              ? "bg-green-100 text-green-800"
+                              : order.status === "Processing"
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-blue-100 text-blue-800"
+                          }`}
+                        >
+                          {order.status}
+                        </span> */}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+      {/* POPULAR PRODUCTS */}
+      {/* <div className="p-4">
         <Card>
           <CardHeader>
             <CardTitle>Popular Products</CardTitle>
@@ -155,7 +248,7 @@ export default function Dashboard({ products }: any) {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </div> */}
     </>
   );
 }

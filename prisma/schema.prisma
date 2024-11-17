@@ -36,18 +36,19 @@ model Category {
 }
 
 model Product {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
   name        String
-  slug        String    @unique
+  slug        String      @unique
   price       Float
   description String?
   storage     String
   image       String?
   variants    Variant[]
-  category    Category  @relation(fields: [categoryId], references: [id])
-  categoryId  String    @db.ObjectId
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  category    Category    @relation(fields: [categoryId], references: [id])
+  categoryId  String      @db.ObjectId
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  OrderItem   OrderItem[]
 
   @@map("products")
 }
@@ -64,15 +65,16 @@ model RepairProduct {
 }
 
 model RepairServices {
-  id            String         @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  price         Float
-  description   String?
-  estimatedTime String?
-  Product       RepairProduct? @relation(fields: [productId], references: [id])
-  productId     String?        @db.ObjectId
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  id                String              @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  price             Float
+  description       String?
+  estimatedTime     String?
+  Product           RepairProduct?      @relation(fields: [productId], references: [id])
+  productId         String?             @db.ObjectId
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  OrderServicesItem OrderServicesItem[]
 
   @@map("repairservices")
 }
@@ -90,7 +92,48 @@ model Variant {
   @@map("variants")
 }
 
+model Order {
+  id                String              @id @default(auto()) @map("_id") @db.ObjectId
+  contactNumber     String
+  email             String?
+  orderStatus       OrderStatus
+  price             Float
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  OrderServicesItem OrderServicesItem[]
+  orderProducts     OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  products  Product @relation(fields: [productId], references: [id])
+  productId String  @db.ObjectId
+  quantity  Int
+  Order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String  @db.ObjectId
+
+  @@map("orderitems")
+}
+
+model OrderServicesItem {
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  services  RepairServices @relation(fields: [serviceId], references: [id])
+  serviceId String         @db.ObjectId
+  orderId   String         @db.ObjectId
+  order     Order          @relation(fields: [orderId], references: [id])
+  quantity  Int
+
+  @@map("orderservicesitems")
+}
+
 enum Role {
   admin
   superadmin
+}
+
+enum OrderStatus {
+  pending
+  paid
 }

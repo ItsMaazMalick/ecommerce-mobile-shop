@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { ArrowLeft, Badge, ShoppingCart, Star } from "lucide-react";
 import Link from "next/link";
+import { AddToCart } from "./add-to-cart";
 
 export default async function ProductDetail({
   params,
@@ -20,7 +21,7 @@ export default async function ProductDetail({
 
   return (
     <>
-      <UserNavbar className="sticky top-0" />
+      <UserNavbar className="sticky top-0 z-50" />
       <div className="container mx-auto px-4 py-8">
         <Button variant="ghost" className="mb-4" asChild>
           <Link href={"/#products"}>
@@ -56,10 +57,7 @@ export default async function ProductDetail({
             <p className="text-2xl font-bold mb-4">${product.price}</p>
             <p className="text-gray-600 mb-6">{product.description}</p>
 
-            <Button className="w-full mb-4">
-              <ShoppingCart className="mr-2 h-4 w-4" />
-              Add to Cart
-            </Button>
+            <AddToCart phone={product} />
 
             <Separator className="my-6" />
 

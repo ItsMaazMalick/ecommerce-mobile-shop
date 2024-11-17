@@ -5,15 +5,19 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { useCartStore } from "@/store";
 import { cn } from "@/lib/utils";
 
-const navItems = [
-  { name: "Products", href: "/#products" },
-  { name: "Repairing Services", href: "/#services" },
-];
+// const navItems = [
+//   { name: "Products", href: "/products" },
+//   { name: "Repairing Services", href: "/services" },
+// ];
 
 export function UserNavbar({ className }: { className?: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const totalItems = useCartStore((state) => state.getTotalItems());
+  console.log(totalItems);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -32,7 +36,7 @@ export function UserNavbar({ className }: { className?: string }) {
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center justify-center flex-1">
+          {/* <div className="hidden md:flex items-center justify-center flex-1">
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -42,15 +46,23 @@ export function UserNavbar({ className }: { className?: string }) {
                 {item.name}
               </Link>
             ))}
-          </div>
+          </div> */}
 
           <div className="flex items-center">
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               <Link
                 href="/cart"
-                className="p-2 text-gray-700 hover:text-primary transition duration-150 ease-in-out"
+                className="p-2 text-gray-700 hover:text-primary transition duration-150 ease-in-out relative"
               >
                 <ShoppingCart className="h-6 w-6" />
+                {totalItems > 0 && (
+                  <Badge
+                    variant="destructive"
+                    className="absolute top-3 -right-2 text-xs"
+                  >
+                    {totalItems}
+                  </Badge>
+                )}
               </Link>
             </motion.div>
             <div className="ml-4 md:hidden">
@@ -70,7 +82,7 @@ export function UserNavbar({ className }: { className?: string }) {
         variants={menuVariants}
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg absolute top-16 left-0 right-0 z-50">
-          {navItems.map((item) => (
+          {/* {navItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}
@@ -79,14 +91,22 @@ export function UserNavbar({ className }: { className?: string }) {
             >
               {item.name}
             </Link>
-          ))}
+          ))} */}
           <div className="mt-4 flex justify-between items-center px-3">
             <Link
               href="/cart"
-              className="text-gray-700 hover:text-primary transition duration-150 ease-in-out"
+              className="text-gray-700 hover:text-primary transition duration-150 ease-in-out relative"
               onClick={toggleMenu}
             >
               <ShoppingCart className="h-6 w-6" />
+              {totalItems > 0 && (
+                <Badge
+                  variant="destructive"
+                  className="absolute -top-2 -right-2 text-xs"
+                >
+                  {totalItems}
+                </Badge>
+              )}
             </Link>
             <Button variant="ghost" onClick={toggleMenu}>
               <X className="h-6 w-6" />

@@ -32,8 +32,20 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Image from "next/image";
+import { useCartStore } from "@/store";
 
 export function Repairing({ product }: any) {
+  const { addItem } = useCartStore();
+
+  const handleAddToCart = (item: any, type: "mobile" | "repair") => {
+    addItem({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      type: type,
+    });
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row gap-8">
@@ -106,7 +118,12 @@ export function Repairing({ product }: any) {
                   </p>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full">Add to Cart</Button>
+                  <Button
+                    onClick={() => handleAddToCart(service, "repair")}
+                    className="w-full"
+                  >
+                    Add to Cart
+                  </Button>
                 </CardFooter>
               </Card>
             ))}

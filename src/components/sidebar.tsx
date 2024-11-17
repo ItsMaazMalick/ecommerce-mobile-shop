@@ -26,7 +26,7 @@ export function Sidebar() {
               </Button>
             </Link>
           </li>
-          <li className="mb-4">
+          {/* <li className="mb-4">
             <Link href="/dashboard/products">
               <Button
                 variant="ghost"
@@ -47,7 +47,7 @@ export function Sidebar() {
                 Repairing Services
               </Button>
             </Link>
-          </li>
+          </li> */}
           <li className="mb-4">
             <Button variant="ghost" className="w-full justify-start text-white">
               <ShoppingCart className="mr-2 h-4 w-4" />

@@ -52,3 +52,20 @@ export async function getServicesWithProduct(slug: string) {
     return null;
   }
 }
+
+export async function getALLServices() {
+  try {
+    const services = await prisma.repairServices.findMany({
+      include: {
+        Product: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+    return services;
+  } catch (error) {
+    return null;
+  }
+}
