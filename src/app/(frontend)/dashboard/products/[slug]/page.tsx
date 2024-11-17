@@ -101,36 +101,36 @@ export default async function ProductDetailPage({
           {/* Specifications */}
           <h2 className="text-xl font-semibold mb-4">Specifications</h2>
           <div className="grid grid-cols-2 gap-4 mb-6">
-            <div>
+            {/* <div>
               <p className="font-medium">Display</p>
               <p className="text-sm text-gray-600">{product.display}</p>
-            </div>
+            </div> */}
             <div>
               <p className="font-medium">Storage</p>
               <p className="text-sm text-gray-600">{product.storage}</p>
             </div>
-            <div>
+            {/* <div>
               <p className="font-medium">Chip</p>
               <p className="text-sm text-gray-600">{product.chip}</p>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <p className="font-medium">Back Camera</p>
               <p className="text-sm text-gray-600">{product.backCamera}</p>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <p className="font-medium">Front Camera</p>
               <p className="text-sm text-gray-600">{product.frontCamera}</p>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <p className="font-medium">Battery</p>
               <p className="text-sm text-gray-600">{product.battery}</p>
-            </div>
+            </div> */}
           </div>
 
           <Separator className="my-6" />
 
           {/* Repair Services */}
-          <h2 className="text-xl font-semibold mb-4">Repair Services</h2>
+          {/* <h2 className="text-xl font-semibold mb-4">Repair Services</h2>
           <Accordion type="single" collapsible className="w-full">
             {product.repairServices.map((service: any, index: number) => (
               <AccordionItem key={index} value={`item-${index}`}>
@@ -156,7 +156,7 @@ export default async function ProductDetailPage({
                 </AccordionContent>
               </AccordionItem>
             ))}
-          </Accordion>
+          </Accordion> */}
         </div>
       </div>
     </div>

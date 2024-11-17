@@ -88,7 +88,7 @@ export function Repairing({ product }: any) {
         <div className="md:w-2/3">
           <h2 className="text-2xl font-bold mb-4">Available Repair Services</h2>
           <div className="grid gap-4 mb-6">
-            {product.repairServices.map((service: any) => (
+            {product.RepairServices?.map((service: any) => (
               <Card key={service.id} className={`transition-colors`}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
@@ -120,7 +120,7 @@ export function Repairing({ product }: any) {
           <CardTitle>Order Summary</CardTitle>
         </CardHeader>
 
-        <CardFooter>
+        {/* <CardFooter>
           <Button
             className="w-full"
             disabled={product.repairServices.length === 0}
@@ -128,7 +128,7 @@ export function Repairing({ product }: any) {
             <ShoppingCart className="w-4 h-4 mr-2" />
             Proceed to Checkout
           </Button>
-        </CardFooter>
+        </CardFooter> */}
       </Card>
     </div>
   );

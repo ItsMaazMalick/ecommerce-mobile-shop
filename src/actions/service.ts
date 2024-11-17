@@ -41,10 +41,10 @@ export const addService = async (
 
 export async function getServicesWithProduct(slug: string) {
   try {
-    const product = await prisma.product.findUnique({
+    const product = await prisma.repairProduct.findUnique({
       where: { slug },
       include: {
-        repairServices: true,
+        RepairServices: true,
       },
     });
     return product;

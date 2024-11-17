@@ -1,41 +1,34 @@
 "use server";
 
 import prisma from "@/lib/db";
+import { addRepairingProductSchema } from "@/lib/schemas/category-schema";
 import { addProductSchema } from "@/lib/schemas/product-schema";
 import { generateSlug } from "@/lib/slug";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-export const addProduct = async (
-  values: z.infer<typeof addProductSchema>,
-  image: string
+export const addRepairingProduct = async (
+  values: z.infer<typeof addRepairingProductSchema>
 ) => {
   try {
-    const validData = addProductSchema.safeParse(values);
-    if (!validData.success || !image) {
+    const validData = addRepairingProductSchema.safeParse(values);
+    if (!validData.success) {
       return { error: "Invalid data provided" };
     }
     const slug = generateSlug(validData.data.name);
-    const existingProductWithSlug = await prisma.product.findUnique({
+    const existingProductWithSlug = await prisma.repairProduct.findUnique({
       where: { slug },
     });
     if (existingProductWithSlug) {
       return { error: "Product already exists" };
     }
-    await prisma.product.create({
+    await prisma.repairProduct.create({
       data: {
         name: validData.data.name,
         slug,
-        price: validData.data.price,
-        image,
-        description: validData.data.description,
-        storage: validData.data.storage,
-        category: {
-          connect: {
-            id: validData.data.category,
-          },
-        },
       },
     });
+    revalidatePath("/dashboard/add-repairing");
     return { success: "Product added" };
   } catch (error) {
     console.log(error);
@@ -43,17 +36,9 @@ export const addProduct = async (
   }
 };
 
-export const getAllProductWithCategoryName = async () => {
+export const getAllRepairingProducts = async () => {
   try {
-    const products = await prisma.product.findMany({
-      include: {
-        category: {
-          select: {
-            name: true,
-          },
-        },
-      },
-    });
+    const products = await prisma.repairProduct.findMany();
     return products;
   } catch (error) {
     return null;
@@ -71,6 +56,18 @@ export async function getProductBySlug(slug: string) {
           },
         },
       },
+    });
+    return product;
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function getRepairingProductBySlug(slug: string) {
+  try {
+    const product = await prisma.repairProduct.findUnique({
+      where: { slug },
+      include: { RepairServices: true },
     });
     return product;
   } catch (error) {

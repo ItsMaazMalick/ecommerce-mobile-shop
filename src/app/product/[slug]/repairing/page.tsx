@@ -1,6 +1,7 @@
 import { getServicesWithProduct } from "@/actions/service";
-import { Repairing } from "./repairing";
+
 import { getRepairingProductBySlug } from "@/actions/repairing";
+import { Repairing } from "@/app/(frontend)/dashboard/products/[slug]/repairing/repairing";
 
 export default async function RepairingPage({
   params,

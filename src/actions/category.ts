@@ -4,17 +4,16 @@ import prisma from "@/lib/db";
 import { addCategorySchema } from "@/lib/schemas/category-schema";
 import { generateSlug } from "@/lib/slug";
 import { z } from "zod";
+import { getSession } from "./session";
 
 export const addCategory = async (
   values: z.infer<typeof addCategorySchema>
 ) => {
   try {
-    const session = {
-      id: "672e3d5548f0b8b2a9f1d68f",
-      name: "Maaz",
-      email: "itsmaazmalick@gmail.com",
-      role: "admin",
-    };
+    const session = await getSession();
+    if (!session) {
+      return { error: "No session found" };
+    }
     const validData = addCategorySchema.safeParse(values);
     if (!validData.success) {
       return { error: "Invalid data provided" };
@@ -32,7 +31,7 @@ export const addCategory = async (
         slug,
         user: {
           connect: {
-            id: session.id,
+            id: session.user.id,
           },
         },
       },

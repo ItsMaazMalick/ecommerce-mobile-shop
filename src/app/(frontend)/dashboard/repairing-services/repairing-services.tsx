@@ -22,12 +22,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 // Assuming you're passing a prop `products` that contains the product data from the backend
-export function RepairingServices({ products }: any) {
-  console.log(products);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-  const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
-
+export function RepairingServices({ products, link }: any) {
   // Handle case when products are undefined or empty
   if (!products || products.length === 0) {
     return (
@@ -43,68 +38,17 @@ export function RepairingServices({ products }: any) {
     );
   }
 
-  const filteredProducts = products.filter(
-    (product: any) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (selectedBrands.length === 0 ||
-        selectedBrands.includes(product.category.name))
-  );
-
-  const brands: string[] = Array.from(
-    new Set(products.map((p: any) => p.category.name))
-  );
-
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Mobile Phones</h1>
+      <h1 className="text-3xl font-bold mb-8">Repairing Services</h1>
 
       {/* Search and Filter */}
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
-        <div className="relative flex-grow">
-          <Input
-            type="text"
-            placeholder="Search products..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
-          />
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-        </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="w-full md:w-auto">
-              <Filter className="mr-2 h-4 w-4" />
-              Filter by Brand
-              <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>Select Brands</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            {brands.map((brand, index) => (
-              <DropdownMenuCheckboxItem
-                key={index}
-                checked={selectedBrands.includes(brand)}
-                onCheckedChange={(checked) => {
-                  setSelectedBrands(
-                    checked
-                      ? [...selectedBrands, brand]
-                      : selectedBrands.filter((b) => b !== brand)
-                  );
-                }}
-              >
-                {brand}
-              </DropdownMenuCheckboxItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
 
       {/* Product Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredProducts.map((product: any) => (
+        {products.map((product: any) => (
           <Card key={product.id} className="flex flex-col">
-            <CardHeader className="p-1">
+            {/* <CardHeader className="p-1">
               <Image
                 src={product.image}
                 alt={product.name}
@@ -112,18 +56,22 @@ export function RepairingServices({ products }: any) {
                 height={1000}
                 className="w-full h-48 object-contain rounded-t-lg"
               />
-            </CardHeader>
+            </CardHeader> */}
             <CardContent className="flex-grow p-4">
               <CardTitle>{product.name}</CardTitle>
-              <p className="text-sm text-gray-500">{product.category.name}</p>
+              {/* <p className="text-sm text-gray-500">{product.category?.name}</p> */}
 
-              <p className="text-lg font-bold mt-2">${product.price}</p>
+              {/* <p className="text-lg font-bold mt-2">${product.price}</p> */}
             </CardContent>
             <CardFooter className="flex justify-between p-4 pt-0">
               <Button asChild>
                 <Link
                   className="w-full"
-                  href={`/admin/dashboard/products/${product.slug}/repairing`}
+                  href={
+                    link
+                      ? `/product/${product.slug}/repairing`
+                      : `/dashboard/products/${product.slug}/repairing`
+                  }
                 >
                   Services
                 </Link>
@@ -134,7 +82,7 @@ export function RepairingServices({ products }: any) {
         ))}
       </div>
 
-      {filteredProducts.length === 0 && (
+      {products.length === 0 && (
         <div className="text-center py-12">
           <Smartphone className="mx-auto h-12 w-12 text-gray-400" />
           <h3 className="mt-2 text-sm font-semibold text-gray-900">

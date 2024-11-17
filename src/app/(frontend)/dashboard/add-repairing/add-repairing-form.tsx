@@ -34,7 +34,7 @@ export function AddRepairingForm({ products }: any) {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof addRepairingSchema>) {
     const response = await addService(values);
-
+    form.reset();
     console.log(response);
   }
   return (

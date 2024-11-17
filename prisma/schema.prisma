@@ -36,38 +36,43 @@ model Category {
 }
 
 model Product {
-  id             String           @id @default(auto()) @map("_id") @db.ObjectId
-  name           String
-  slug           String           @unique
-  price          Float
-  description    String?
-  display        String
-  storage        String
-  chip           String
-  frontCamera    String
-  backCamera     String
-  battery        String
-  image          String?
-  variants       Variant[]
-  repairServices RepairServices[]
-  category       Category         @relation(fields: [categoryId], references: [id])
-  categoryId     String           @db.ObjectId
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  slug        String    @unique
+  price       Float
+  description String?
+  storage     String
+  image       String?
+  variants    Variant[]
+  category    Category  @relation(fields: [categoryId], references: [id])
+  categoryId  String    @db.ObjectId
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@map("products")
 }
 
+model RepairProduct {
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  slug           String           @unique
+  RepairServices RepairServices[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@map("repairproducts")
+}
+
 model RepairServices {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
   name          String
   price         Float
   description   String?
   estimatedTime String?
-  Product       Product? @relation(fields: [productId], references: [id])
-  productId     String?  @db.ObjectId
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  Product       RepairProduct? @relation(fields: [productId], references: [id])
+  productId     String?        @db.ObjectId
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 
   @@map("repairservices")
 }
