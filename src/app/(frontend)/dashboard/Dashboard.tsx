@@ -2,10 +2,18 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart3 } from "lucide-react";
-import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-export default function Dashboard({ products, services }: any) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+export default function Dashboard({
+  products,
+  services,
+  orders,
+  totalOrdersLength,
+  pendingOrders,
+  paidOrders,
+}: any) {
+  const router = useRouter();
 
   return (
     <>
@@ -13,32 +21,34 @@ export default function Dashboard({ products, services }: any) {
       <div className="w-full grid grid-cols-4 p-4 gap-4">
         <Card className="bg-gradient-to-br from-primary-700 to-primary-400 text-primary-foreground shadow-md">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+            <CardTitle className="text-sm font-medium">Total Orders</CardTitle>
             <BarChart3 className="h-4 w-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$45,231.89</div>
-            <p className="text-xs text-secondary-100">+20.1% from last month</p>
+            <div className="text-2xl font-bold">{totalOrdersLength}</div>
+            {/* <p className="text-xs text-secondary-100">+20.1% from last month</p> */}
           </CardContent>
         </Card>
         <Card className="bg-gradient-to-br from-primary-700 to-primary-400 text-primary-foreground shadow-md">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+            <CardTitle className="text-sm font-medium">Paid Orders</CardTitle>
             <BarChart3 className="h-4 w-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$45,231.89</div>
-            <p className="text-xs text-secondary-100">+20.1% from last month</p>
+            <div className="text-2xl font-bold">{paidOrders}</div>
+            {/* <p className="text-xs text-secondary-100">+20.1% from last month</p> */}
           </CardContent>
         </Card>
         <Card className="bg-gradient-to-br from-primary-700 to-primary-400 text-primary-foreground shadow-md">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Pending Orders
+            </CardTitle>
             <BarChart3 className="h-4 w-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$45,231.89</div>
-            <p className="text-xs text-secondary-100">+20.1% from last month</p>
+            <div className="text-2xl font-bold">{pendingOrders}</div>
+            {/* <p className="text-xs text-secondary-100">+20.1% from last month</p> */}
           </CardContent>
         </Card>
         <Card className="bg-gradient-to-br from-primary-700 to-primary-400 text-primary-foreground shadow-md">
@@ -64,59 +74,36 @@ export default function Dashboard({ products, services }: any) {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left p-2">Order ID</th>
-                    <th className="text-left p-2">Customer</th>
-                    <th className="text-left p-2">Product</th>
+                    <th className="text-left p-2">Customer Email</th>
+                    <th className="text-left p-2">Customer Contact</th>
                     <th className="text-left p-2">Amount</th>
                     <th className="text-left p-2">Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {[
-                    {
-                      id: "1234",
-                      customer: "John Doe",
-                      product: "iPhone 13",
-                      amount: "$999",
-                      status: "Completed",
-                    },
-                    {
-                      id: "1235",
-                      customer: "Jane Smith",
-                      product: "Samsung Galaxy S21",
-                      amount: "$799",
-                      status: "Processing",
-                    },
-                    {
-                      id: "1236",
-                      customer: "Bob Johnson",
-                      product: "Google Pixel 6",
-                      amount: "$699",
-                      status: "Shipped",
-                    },
-                    {
-                      id: "1237",
-                      customer: "Alice Brown",
-                      product: "OnePlus 9 Pro",
-                      amount: "$899",
-                      status: "Completed",
-                    },
-                  ].map((order) => (
-                    <tr key={order.id} className="border-b">
+                  {orders.map((order: any) => (
+                    <tr
+                      key={order.id}
+                      className="border-b cursor-pointer"
+                      onClick={() =>
+                        router.push(`/dashboard/orders/${order.id}`)
+                      }
+                    >
                       <td className="p-2">{order.id}</td>
-                      <td className="p-2">{order.customer}</td>
-                      <td className="p-2">{order.product}</td>
-                      <td className="p-2">{order.amount}</td>
+                      <td className="p-2">{order.email}</td>
+                      <td className="p-2">{order.contactNumber}</td>
+                      <td className="p-2">${order.price}</td>
                       <td className="p-2">
                         <span
                           className={`px-2 py-1 rounded-full text-xs ${
-                            order.status === "Completed"
+                            order.orderStatus === "paid"
                               ? "bg-green-100 text-green-800"
-                              : order.status === "Processing"
+                              : order.orderStatus === "pending"
                               ? "bg-yellow-100 text-yellow-800"
                               : "bg-blue-100 text-blue-800"
                           }`}
                         >
-                          {order.status}
+                          {order.orderStatus}
                         </span>
                       </td>
                     </tr>

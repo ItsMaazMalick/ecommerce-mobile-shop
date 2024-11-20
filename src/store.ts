@@ -1,15 +1,15 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
-type ProductType = "mobile" | "repair";
+export type ProductType = "mobile" | "repair" | "backglass" | "screen";
 
-interface CartItem {
+export type CartItem = {
   id: number;
   name: string;
   price: number;
   quantity: number;
   type: ProductType;
-}
+};
 
 interface CartStore {
   items: CartItem[];

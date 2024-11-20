@@ -3,6 +3,9 @@ import { AddProductForm } from "./add-product-form";
 
 export default async function AddProductPage() {
   const categories = await getAllCategories();
+  if (!categories) {
+    return null;
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">

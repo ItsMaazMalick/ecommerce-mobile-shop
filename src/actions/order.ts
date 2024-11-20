@@ -2,7 +2,21 @@
 
 import prisma from "@/lib/db";
 
-export async function createOrder(values: any) {
+interface CartItem {
+  id: string; // Or number if the product ID is numeric
+  name: string;
+  price: number;
+  quantity: number;
+  type: "mobile" | "repair"; // Only these two types for now
+}
+
+interface CreateOrderValues {
+  contactNumber: string;
+  email?: string; // Optional email
+  cartItems: CartItem[];
+}
+
+export async function createOrder(values: CreateOrderValues) {
   try {
     if (!values.contactNumber) {
       return { error: "Contact Number is required" };
@@ -62,5 +76,72 @@ export async function createOrder(values: any) {
     return { success: "Order created..." };
   } catch {
     return { error: "Something went wrong" };
+  }
+}
+
+export async function getAllOrders() {
+  try {
+    const orders = await prisma.order.findMany();
+    return orders;
+  } catch {
+    return null;
+  }
+}
+
+export async function getOrderById(id: string) {
+  try {
+    const order = await prisma.order.findUnique({
+      where: { id },
+      include: {
+        orderProducts: {
+          include: {
+            products: true,
+          },
+        },
+        OrderServicesItem: {
+          include: {
+            services: true,
+          },
+        },
+      },
+    });
+    return order;
+  } catch {
+    return null;
+  }
+}
+
+export async function totalOrdersLength() {
+  try {
+    const orderLength = await prisma.order.count();
+    return orderLength;
+  } catch {
+    return null;
+  }
+}
+
+export async function getPendingOrdersLength() {
+  try {
+    const orderLength = await prisma.order.count({
+      where: {
+        orderStatus: "pending",
+      },
+    });
+    return orderLength;
+  } catch {
+    return null;
+  }
+}
+
+export async function getPaidOrdersLength() {
+  try {
+    const orderLength = await prisma.order.count({
+      where: {
+        orderStatus: "paid",
+      },
+    });
+    return orderLength;
+  } catch {
+    return null;
   }
 }

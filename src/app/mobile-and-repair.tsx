@@ -8,6 +8,8 @@ import {
   PenToolIcon as Tool,
   Plus,
   Smartphone,
+  Layers,
+  Monitor,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -62,25 +64,69 @@ const repairServices = [
     id: 101,
     name: "Screen Replacement",
     price: 129,
-    image: "/screen-replacement-icon.svg", // Add appropriate icon/image path here
+    image: "/screen-replacement-icon.svg",
   },
   {
     id: 102,
     name: "Battery Replacement",
     price: 79,
-    image: "/battery-replacement-icon.svg", // Add appropriate icon/image path here
+    image: "/battery-replacement-icon.svg",
   },
   {
     id: 103,
     name: "Camera Repair",
     price: 99,
-    image: "/camera-repair-icon.svg", // Add appropriate icon/image path here
+    image: "/camera-repair-icon.svg",
   },
   {
     id: 104,
     name: "Water Damage Repair",
     price: 199,
-    image: "/water-damage-repair-icon.svg", // Add appropriate icon/image path here
+    image: "/water-damage-repair-icon.svg",
+  },
+];
+
+// Mock data for back glass
+const backGlassServices = [
+  {
+    id: 201,
+    name: "iPhone 12 Back Glass",
+    price: 89,
+    image: "/back-glass-icon.svg",
+  },
+  {
+    id: 202,
+    name: "Samsung S21 Back Glass",
+    price: 79,
+    image: "/back-glass-icon.svg",
+  },
+  {
+    id: 203,
+    name: "Google Pixel 5 Back Glass",
+    price: 69,
+    image: "/back-glass-icon.svg",
+  },
+];
+
+// Mock data for mobile screens
+const mobileScreens = [
+  {
+    id: 301,
+    name: "iPhone 13 Pro OLED Screen",
+    price: 299,
+    image: "/screen-icon.svg",
+  },
+  {
+    id: 302,
+    name: "Samsung Galaxy S21 AMOLED Screen",
+    price: 249,
+    image: "/screen-icon.svg",
+  },
+  {
+    id: 303,
+    name: "Google Pixel 6 OLED Screen",
+    price: 219,
+    image: "/screen-icon.svg",
   },
 ];
 
@@ -90,6 +136,8 @@ export default function MobilePhonesAndServicesPage({
 }: any) {
   const [phoneSearchTerm, setPhoneSearchTerm] = useState("");
   const [serviceSearchTerm, setServiceSearchTerm] = useState("");
+  const [backGlassSearchTerm, setBackGlassSearchTerm] = useState("");
+  const [screenSearchTerm, setScreenSearchTerm] = useState("");
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const { addItem } = useCartStore();
 
@@ -103,11 +151,23 @@ export default function MobilePhonesAndServicesPage({
     service.name.toLowerCase().includes(serviceSearchTerm.toLowerCase())
   );
 
+  const filteredBackGlass = backGlassServices.filter((service: any) =>
+    service.name.toLowerCase().includes(backGlassSearchTerm.toLowerCase())
+  );
+
+  const filteredScreens = mobileScreens.filter((screen: any) =>
+    screen.name.toLowerCase().includes(screenSearchTerm.toLowerCase())
+  );
+
   const brands = Array.from(new Set(phones.map((p) => p.brand)));
 
   const handleAddToCart = (
-    item: (typeof phones)[0] | (typeof repairServices)[0],
-    type: "mobile" | "repair"
+    item:
+      | (typeof phones)[0]
+      | (typeof repairServices)[0]
+      | (typeof backGlassServices)[0]
+      | (typeof mobileScreens)[0],
+    type: "mobile" | "repair" | "backglass" | "screen"
   ) => {
     addItem({
       id: item.id,
@@ -120,16 +180,26 @@ export default function MobilePhonesAndServicesPage({
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8 text-center">
-        Mobile Phones & Repair Services
+        Mobile Phones & Services
       </h1>
 
       <Tabs defaultValue="phones" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 bg-primary-300">
+        <TabsList className="grid w-full grid-cols-4 bg-primary-300">
           <TabsTrigger value="phones">Mobile Phones</TabsTrigger>
           <TabsTrigger value="services">Repair Services</TabsTrigger>
+          <TabsTrigger value="backglass">Back Glass</TabsTrigger>
+          <TabsTrigger value="screens">Mobile Screens</TabsTrigger>
         </TabsList>
 
         <TabsContent value="phones">
+          <div className="mb-4">
+            <Input
+              type="text"
+              placeholder="Search phones..."
+              value={phoneSearchTerm}
+              onChange={(e) => setPhoneSearchTerm(e.target.value)}
+            />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {products.map((phone: any) => (
               <Card
@@ -163,7 +233,6 @@ export default function MobilePhonesAndServicesPage({
                     className="w-full"
                     onClick={() => handleAddToCart(phone, "mobile")}
                   >
-                    {/* <Plus className="mr-1 h-4 w-4" /> */}
                     Add to Cart
                   </Button>
                 </CardFooter>
@@ -185,6 +254,14 @@ export default function MobilePhonesAndServicesPage({
         </TabsContent>
 
         <TabsContent value="services">
+          <div className="mb-4">
+            <Input
+              type="text"
+              placeholder="Search repair services..."
+              value={serviceSearchTerm}
+              onChange={(e) => setServiceSearchTerm(e.target.value)}
+            />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {repairingProducts.map((service: any) => (
               <Card
@@ -206,7 +283,6 @@ export default function MobilePhonesAndServicesPage({
                     <Tool className="mr-1 h-3 w-3" />
                     Repair Service
                   </Badge>
-                  {/* <p className="text-lg font-bold">${service.price}</p> */}
                 </CardContent>
                 <CardFooter>
                   <Button variant="default" className="w-full" asChild>
@@ -223,6 +299,120 @@ export default function MobilePhonesAndServicesPage({
               <Tool className="mx-auto h-12 w-12 text-gray-400" />
               <h3 className="mt-2 text-sm font-semibold text-gray-900">
                 No repair services found
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                Try adjusting your search to find what you're looking for.
+              </p>
+            </div>
+          )}
+        </TabsContent>
+
+        <TabsContent value="backglass">
+          <div className="mb-4">
+            <Input
+              type="text"
+              placeholder="Search back glass services..."
+              value={backGlassSearchTerm}
+              onChange={(e) => setBackGlassSearchTerm(e.target.value)}
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredBackGlass.map((service: any) => (
+              <Card
+                key={service.id}
+                className="flex flex-col shadow-lg transition-transform transform hover:scale-105"
+              >
+                <CardHeader>
+                  <Image
+                    src={service.image}
+                    alt={service.name}
+                    width={1000}
+                    height={1000}
+                    className="w-full h-48 object-contain rounded-t-lg"
+                  />
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <CardTitle className="mb-2">{service.name}</CardTitle>
+                  <Badge variant="secondary" className="mb-2">
+                    <Layers className="mr-1 h-3 w-3" />
+                    Back Glass
+                  </Badge>
+                  <p className="text-lg font-bold">${service.price}</p>
+                </CardContent>
+                <CardFooter>
+                  <Button
+                    variant="default"
+                    className="w-full"
+                    onClick={() => handleAddToCart(service, "backglass")}
+                  >
+                    Add to Cart
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+          {filteredBackGlass.length === 0 && (
+            <div className="text-center py-12">
+              <Layers className="mx-auto h-12 w-12 text-gray-400" />
+              <h3 className="mt-2 text-sm font-semibold text-gray-900">
+                No back glass services found
+              </h3>
+              <p className="mt-1 text-sm text-gray-500">
+                Try adjusting your search to find what you're looking for.
+              </p>
+            </div>
+          )}
+        </TabsContent>
+
+        <TabsContent value="screens">
+          <div className="mb-4">
+            <Input
+              type="text"
+              placeholder="Search mobile screens..."
+              value={screenSearchTerm}
+              onChange={(e) => setScreenSearchTerm(e.target.value)}
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredScreens.map((screen: any) => (
+              <Card
+                key={screen.id}
+                className="flex flex-col shadow-lg transition-transform transform hover:scale-105"
+              >
+                <CardHeader>
+                  <Image
+                    src={screen.image}
+                    alt={screen.name}
+                    width={1000}
+                    height={1000}
+                    className="w-full h-48 object-contain rounded-t-lg"
+                  />
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <CardTitle className="mb-2">{screen.name}</CardTitle>
+                  <Badge variant="secondary" className="mb-2">
+                    <Monitor className="mr-1 h-3 w-3" />
+                    Mobile Screen
+                  </Badge>
+                  <p className="text-lg font-bold">${screen.price}</p>
+                </CardContent>
+                <CardFooter>
+                  <Button
+                    variant="default"
+                    className="w-full"
+                    onClick={() => handleAddToCart(screen, "screen")}
+                  >
+                    Add to Cart
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+          {filteredScreens.length === 0 && (
+            <div className="text-center py-12">
+              <Monitor className="mx-auto h-12 w-12 text-gray-400" />
+              <h3 className="mt-2 text-sm font-semibold text-gray-900">
+                No mobile screens found
               </h3>
               <p className="mt-1 text-sm text-gray-500">
                 Try adjusting your search to find what you're looking for.

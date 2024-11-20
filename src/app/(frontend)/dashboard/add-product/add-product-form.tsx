@@ -16,7 +16,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 export function AddProductForm({ categories }: any) {
-  console.log(categories);
   const [image, setImage] = useState<File | null | undefined>();
   // 1. Define your form.
   const form = useForm<z.infer<typeof addProductSchema>>({
