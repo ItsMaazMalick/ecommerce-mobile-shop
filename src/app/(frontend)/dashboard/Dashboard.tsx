@@ -12,7 +12,7 @@ export default function Dashboard({
   totalOrdersLength,
   pendingOrders,
   paidOrders,
-}: any) {
+}: DashboardProps) {
   const router = useRouter();
 
   return (
