@@ -25,6 +25,7 @@ export const addService = async (
         price: validData.data.price,
         description: validData.data.description,
         estimatedTime: validData.data.estimatedTime,
+        type: "basic",
         Product: {
           connect: {
             id: validData.data.product,
@@ -43,7 +44,9 @@ export async function getServicesWithProduct(slug: string) {
     const product = await prisma.repairProduct.findUnique({
       where: { slug },
       include: {
-        RepairServices: true,
+        RepairServices: {
+          where: { type: "basic" },
+        },
       },
     });
     return product;
@@ -55,6 +58,7 @@ export async function getServicesWithProduct(slug: string) {
 export async function getALLServices() {
   try {
     const services = await prisma.repairServices.findMany({
+      where: { type: "basic" },
       include: {
         Product: {
           select: {

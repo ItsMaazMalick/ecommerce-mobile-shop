@@ -10,6 +10,8 @@ export default async function OrderDetailPage({
 
   const order = await getOrderById(id);
 
+  console.log(order);
+
   return (
     <div>
       <OrderPage order={order} />

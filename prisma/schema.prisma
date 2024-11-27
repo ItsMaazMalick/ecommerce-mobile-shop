@@ -70,24 +70,28 @@ model RepairServices {
   price             Float
   description       String?
   estimatedTime     String?
+  type              RepairService
   Product           RepairProduct?      @relation(fields: [productId], references: [id])
   productId         String?             @db.ObjectId
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
   OrderServicesItem OrderServicesItem[]
+  variants          Variant[]
 
   @@map("repairservices")
 }
 
 model Variant {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  price     Float
-  discount  Int?
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId String   @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id               String          @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  price            Float
+  discount         Int?
+  product          Product?        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId        String?         @db.ObjectId
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  RepairServices   RepairServices? @relation(fields: [repairServicesId], references: [id], onDelete: Cascade)
+  repairServicesId String?         @db.ObjectId
 
   @@map("variants")
 }
@@ -107,18 +111,19 @@ model Order {
 }
 
 model OrderItem {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  products  Product @relation(fields: [productId], references: [id])
-  productId String  @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  products  Product? @relation(fields: [productId], references: [id])
+  productId String?  @db.ObjectId
   quantity  Int
-  Order     Order   @relation(fields: [orderId], references: [id])
-  orderId   String  @db.ObjectId
+  Order     Order    @relation(fields: [orderId], references: [id])
+  orderId   String   @db.ObjectId
 
   @@map("orderitems")
 }
 
 model OrderServicesItem {
   id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
   services  RepairServices @relation(fields: [serviceId], references: [id])
   serviceId String         @db.ObjectId
   orderId   String         @db.ObjectId
@@ -136,4 +141,10 @@ enum Role {
 enum OrderStatus {
   pending
   paid
+}
+
+enum RepairService {
+  basic
+  screen
+  glass
 }

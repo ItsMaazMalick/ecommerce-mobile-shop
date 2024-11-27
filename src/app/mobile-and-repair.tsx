@@ -133,6 +133,8 @@ const mobileScreens = [
 export default function MobilePhonesAndServicesPage({
   products,
   repairingProducts,
+  glass,
+  screens,
 }: any) {
   const [phoneSearchTerm, setPhoneSearchTerm] = useState("");
   const [serviceSearchTerm, setServiceSearchTerm] = useState("");
@@ -317,33 +319,33 @@ export default function MobilePhonesAndServicesPage({
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredBackGlass.map((service: any) => (
+            {glass.map((gl: any) => (
               <Card
-                key={service.id}
+                key={gl.id}
                 className="flex flex-col shadow-lg transition-transform transform hover:scale-105"
               >
                 <CardHeader>
                   <Image
-                    src={service.image}
-                    alt={service.name}
+                    src={"/repair-service.png"}
+                    alt={gl.name}
                     width={1000}
                     height={1000}
                     className="w-full h-48 object-contain rounded-t-lg"
                   />
                 </CardHeader>
                 <CardContent className="flex-grow">
-                  <CardTitle className="mb-2">{service.name}</CardTitle>
+                  <CardTitle className="mb-2">{gl.name}</CardTitle>
                   <Badge variant="secondary" className="mb-2">
                     <Layers className="mr-1 h-3 w-3" />
                     Back Glass
                   </Badge>
-                  <p className="text-lg font-bold">${service.price}</p>
+                  <p className="text-lg font-bold">${gl.price}</p>
                 </CardContent>
                 <CardFooter>
                   <Button
                     variant="default"
                     className="w-full"
-                    onClick={() => handleAddToCart(service, "backglass")}
+                    onClick={() => handleAddToCart(gl, "backglass")}
                   >
                     Add to Cart
                   </Button>
@@ -351,7 +353,7 @@ export default function MobilePhonesAndServicesPage({
               </Card>
             ))}
           </div>
-          {filteredBackGlass.length === 0 && (
+          {glass.length === 0 && (
             <div className="text-center py-12">
               <Layers className="mx-auto h-12 w-12 text-gray-400" />
               <h3 className="mt-2 text-sm font-semibold text-gray-900">
@@ -374,14 +376,14 @@ export default function MobilePhonesAndServicesPage({
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredScreens.map((screen: any) => (
+            {screens.map((screen: any) => (
               <Card
                 key={screen.id}
                 className="flex flex-col shadow-lg transition-transform transform hover:scale-105"
               >
                 <CardHeader>
                   <Image
-                    src={screen.image}
+                    src={"/repair-service.png"}
                     alt={screen.name}
                     width={1000}
                     height={1000}
@@ -408,7 +410,7 @@ export default function MobilePhonesAndServicesPage({
               </Card>
             ))}
           </div>
-          {filteredScreens.length === 0 && (
+          {screens.length === 0 && (
             <div className="text-center py-12">
               <Monitor className="mx-auto h-12 w-12 text-gray-400" />
               <h3 className="mt-2 text-sm font-semibold text-gray-900">

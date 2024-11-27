@@ -7,7 +7,7 @@ interface CartItem {
   name: string;
   price: number;
   quantity: number;
-  type: "mobile" | "repair"; // Only these two types for now
+  type: "mobile" | "repair" | "backglass" | "screen";
 }
 
 interface CreateOrderValues {
@@ -40,6 +40,11 @@ export async function createOrder(values: CreateOrderValues) {
     const orderItems = values.cartItems.filter(
       (item: any) => item.type === "mobile"
     );
+
+    const extra = values.cartItems.filter(
+      (item: any) => item.type === "backglass" || item.type === "screen"
+    );
+
     const repairItems = values.cartItems.filter(
       (item: any) => item.type === "repair"
     );
@@ -59,6 +64,8 @@ export async function createOrder(values: CreateOrderValues) {
       );
     }
 
+    console.log("Hello1");
+
     // 7. Create order services for repair services
     if (repairItems.length > 0) {
       await prisma.orderServicesItem.createMany({
@@ -73,6 +80,22 @@ export async function createOrder(values: CreateOrderValues) {
         `Created ${repairItems.length} order services for repair services.`
       );
     }
+
+    if (extra.length > 0) {
+      await prisma.orderServicesItem.createMany({
+        data: extra.map((item: any) => ({
+          orderId: orderId,
+          serviceId: item.id,
+          name: item.name,
+          quantity: item.quantity,
+          // price: item.price,
+        })),
+      });
+      console.log(
+        `Created ${orderItems.length} order items for mobile products.`
+      );
+    }
+
     return { success: "Order created..." };
   } catch {
     return { error: "Something went wrong" };

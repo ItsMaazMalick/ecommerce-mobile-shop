@@ -115,12 +115,12 @@ export function OrderPage({ order }: any) {
                   <TableCell className="font-medium">
                     <div className="flex items-center">
                       <Phone className="mr-2 h-4 w-4" />
-                      {item.products.name}
+                      {item?.products?.name || item?.name}
                     </div>
                   </TableCell>
                   <TableCell>{item.quantity}</TableCell>
                   <TableCell className="text-right">
-                    ${item.products.price.toFixed(2)}
+                    ${item?.products?.price?.toFixed(2)}
                   </TableCell>
                 </TableRow>
               ))}

@@ -87,6 +87,28 @@ export function Sidebar() {
               </Button>
             </Link>
           </li>
+          <li className="mb-4">
+            <Link href="/dashboard/add-glass">
+              <Button
+                variant="ghost"
+                className="w-full justify-start text-white"
+              >
+                <Package className="mr-2 h-4 w-4" />
+                Add Glass
+              </Button>
+            </Link>
+          </li>
+          <li className="mb-4">
+            <Link href="/dashboard/add-screen">
+              <Button
+                variant="ghost"
+                className="w-full justify-start text-white"
+              >
+                <Package className="mr-2 h-4 w-4" />
+                Add Screen
+              </Button>
+            </Link>
+          </li>
         </ul>
       </nav>
     </aside>
