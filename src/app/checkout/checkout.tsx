@@ -89,7 +89,7 @@ export function CheckoutForm() {
                       />
                     </FormControl>
                     <FormDescription>
-                      We'll send your order confirmation to this email.
+                      We&apos;ll send your order confirmation to this email.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -105,8 +105,8 @@ export function CheckoutForm() {
                       <Input type="tel" placeholder="+1234567890" {...field} />
                     </FormControl>
                     <FormDescription>
-                      We'll use this number to contact you about your order if
-                      necessary.
+                      We&apos;ll use this number to contact you about your order
+                      if necessary.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
