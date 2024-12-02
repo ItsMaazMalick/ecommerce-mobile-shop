@@ -3,7 +3,7 @@
 import prisma from "@/lib/db";
 
 interface CartItem {
-  id: string; // Or number if the product ID is numeric
+  id: number; // Or number if the product ID is numeric
   name: string;
   price: number;
   quantity: number;
