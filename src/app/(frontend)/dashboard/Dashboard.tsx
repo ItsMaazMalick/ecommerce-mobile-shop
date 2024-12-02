@@ -2,7 +2,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart3 } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function Dashboard({
@@ -12,7 +11,7 @@ export default function Dashboard({
   totalOrdersLength,
   pendingOrders,
   paidOrders,
-}: DashboardProps) {
+}: any) {
   const router = useRouter();
 
   return (

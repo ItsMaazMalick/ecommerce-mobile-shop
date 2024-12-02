@@ -1,11 +1,7 @@
 "use server";
 
 import prisma from "@/lib/db";
-import {
-  addGlassSchema,
-  addRepairingSchema,
-  addScreenSchema,
-} from "@/lib/schemas/repairing-schema";
+import { addScreenSchema } from "@/lib/schemas/repairing-schema";
 import { z } from "zod";
 
 export const addScreen = async (values: z.infer<typeof addScreenSchema>) => {
@@ -16,7 +12,7 @@ export const addScreen = async (values: z.infer<typeof addScreenSchema>) => {
     }
 
     // Create the repair service first
-    const service = await prisma.repairServices.create({
+    await prisma.repairServices.create({
       data: {
         name: validData.data.name,
         price: validData.data.price,

@@ -22,9 +22,12 @@ export async function createOrder(values: CreateOrderValues) {
       return { error: "Contact Number is required" };
     }
 
-    const totalPrice = values.cartItems.reduce((total: number, item: any) => {
-      return total + item.price * item.quantity;
-    }, 0);
+    const totalPrice = values.cartItems.reduce(
+      (total: number, item: CartItem) => {
+        return total + item.price * item.quantity;
+      },
+      0
+    );
 
     const result = await prisma.order.create({
       data: {
