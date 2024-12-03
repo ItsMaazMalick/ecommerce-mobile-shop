@@ -32,7 +32,8 @@ const config: Config = {
   				'800': '#02628a',
   				'900': '#085172',
   				'950': '#06334b',
-  				foreground: 'hsl(var(--primary-foreground))'
+  				foreground: 'hsl(var(--primary-foreground))',
+  				DEFAULT: 'hsl(var(--primary))'
   			},
   			secondary: {
   				'50': '#fff2e6',
@@ -46,7 +47,8 @@ const config: Config = {
   				'800': '#611b0a',
   				'900': '#45130a',
   				'950': '#2e0a08',
-  				foreground: 'hsl(var(--secondary-foreground))'
+  				foreground: 'hsl(var(--secondary-foreground))',
+  				DEFAULT: 'hsl(var(--secondary))'
   			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
