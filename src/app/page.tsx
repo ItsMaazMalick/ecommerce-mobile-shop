@@ -1,12 +1,9 @@
-import Image from "next/image";
-import { Products } from "./(frontend)/dashboard/products/products";
-import { getAllProductWithCategoryName } from "@/actions/product";
-import { UserNavbar } from "./user-navbar";
-import { RepairingServices } from "./(frontend)/dashboard/repairing-services/repairing-services";
-import { getAllRepairingProducts } from "@/actions/repairing";
-import MobilePhonesAndServicesPage from "./mobile-and-repair";
 import { getALLGlass } from "@/actions/glass";
+import { getAllProductWithCategoryName } from "@/actions/product";
+import { getAllRepairingProducts } from "@/actions/repairing";
 import { getALLScreens } from "@/actions/screen";
+import MobilePhonesAndServicesPage from "./mobile-and-repair";
+import { UserNavbar } from "./user-navbar";
 
 export default async function Home() {
   const products = await getAllProductWithCategoryName();
