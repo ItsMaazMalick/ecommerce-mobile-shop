@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -49,22 +48,21 @@ export function UserNavbar({ className }: { className?: string }) {
           </div> */}
 
           <div className="flex items-center">
-            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                href="/cart"
-                className="p-2 text-gray-700 hover:text-primary transition duration-150 ease-in-out relative"
-              >
-                <ShoppingCart className="h-6 w-6" />
-                {totalItems > 0 && (
-                  <Badge
-                    variant="destructive"
-                    className="absolute top-3 -right-2 text-xs"
-                  >
-                    {totalItems}
-                  </Badge>
-                )}
-              </Link>
-            </motion.div>
+            <Link
+              href="/cart"
+              className="p-2 text-gray-700 hover:text-primary transition duration-150 ease-in-out relative"
+            >
+              <ShoppingCart className="h-6 w-6" />
+              {totalItems > 0 && (
+                <Badge
+                  variant="destructive"
+                  className="absolute top-3 -right-2 text-xs"
+                >
+                  {totalItems}
+                </Badge>
+              )}
+            </Link>
+
             <div className="ml-4 md:hidden">
               <Button variant="ghost" onClick={toggleMenu}>
                 <Menu className="h-6 w-6" />
@@ -75,14 +73,9 @@ export function UserNavbar({ className }: { className?: string }) {
       </div>
 
       {/* Mobile menu */}
-      <motion.div
-        className="md:hidden"
-        initial="closed"
-        animate={isOpen ? "open" : "closed"}
-        variants={menuVariants}
-      >
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg absolute top-16 left-0 right-0 z-50">
-          {/* {navItems.map((item) => (
+
+      <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg absolute top-16 left-0 right-0 z-50">
+        {/* {navItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}
@@ -92,28 +85,27 @@ export function UserNavbar({ className }: { className?: string }) {
               {item.name}
             </Link>
           ))} */}
-          <div className="mt-4 flex justify-between items-center px-3">
-            <Link
-              href="/cart"
-              className="text-gray-700 hover:text-primary transition duration-150 ease-in-out relative"
-              onClick={toggleMenu}
-            >
-              <ShoppingCart className="h-6 w-6" />
-              {totalItems > 0 && (
-                <Badge
-                  variant="destructive"
-                  className="absolute -top-2 -right-2 text-xs"
-                >
-                  {totalItems}
-                </Badge>
-              )}
-            </Link>
-            <Button variant="ghost" onClick={toggleMenu}>
-              <X className="h-6 w-6" />
-            </Button>
-          </div>
+        <div className="mt-4 flex justify-between items-center px-3">
+          <Link
+            href="/cart"
+            className="text-gray-700 hover:text-primary transition duration-150 ease-in-out relative"
+            onClick={toggleMenu}
+          >
+            <ShoppingCart className="h-6 w-6" />
+            {totalItems > 0 && (
+              <Badge
+                variant="destructive"
+                className="absolute -top-2 -right-2 text-xs"
+              >
+                {totalItems}
+              </Badge>
+            )}
+          </Link>
+          <Button variant="ghost" onClick={toggleMenu}>
+            <X className="h-6 w-6" />
+          </Button>
         </div>
-      </motion.div>
+      </div>
     </nav>
   );
 }
